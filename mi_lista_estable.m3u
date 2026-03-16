@@ -1,40 +1,19 @@
-import subprocess
-import os
-
-def obtener_url_m3u8(url_web_oficial):
-    comando = ['python', '-m', 'yt_dlp', '--socket-timeout', '10', '-g', url_web_oficial]
-    try:
-        resultado = subprocess.run(comando, capture_output=True, text=True, timeout=15)
-        return resultado.stdout.strip() if resultado.returncode == 0 else None
-    except: return None
-
-# 1. CANALES DINÁMICOS (Se actualizan por YouTube)
-canales_dinamicos = {
-    "1. TV Publica": "https://www.youtube.com/watch?v=O130_N-f_7I",
-    "2. Telefe": "https://www.youtube.com/@telefe/live",
-    "3. DeporTV": "https://www.youtube.com/@canaldeportv/live",
-    "4. TN Todo Noticias": "https://www.youtube.com/@todonoticias/live"
-}
-
-# 2. CANALES DIRECTOS (Google DAI y Premium - Los más estables)
-canales_estaticos = {
-    "5. AMERICA TV (Google HD)": "https://dai.google.com/linear/hls/pa/event/OY2i_lL4SMyXE5Zaj4ULEg/stream/882ee0f7-fa43-499c-b598-5102a8076cff:SCL2/master.m3u8",
-    "6. A24 (Google HD)": "https://dai.google.com/linear/hls/pa/event/Txk1vDlZR2CCfDuUZ0ylpw/stream/3f52902a-22c2-4163-8438-ab9e4413b732:SCL2/master.m3u8",
-    "7. ESPN Premium": "http://dplatino.net:80//live/credito3geotv/car26octtv/149087.ts",
-    "8. TyC Sports": "http://dplatino.net:80//live/credito3geotv/car26octtv/81252.ts",
-    "9. TNT Sports": "http://dplatino.net:80//live/credito3geotv/car26octtv/81284.ts",
-    "10. FOX Sports": "http://dplatino.net:80//live/credito3geotv/car26octtv/50506.ts",
-    "11. Pluto TV Deportes": "http://samsung-ar.pluto.tv/samsung-ar/linear/6082e0fb521c70000787e6fa/master.m3u8"
-}
-
-ruta_archivo = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mi_lista_estable.m3u")
-
-with open(ruta_archivo, "w") as f:
-    f.write("#EXTM3U\n")
-    for nom, url in canales_dinamicos.items():
-        link = obtener_url_m3u8(url)
-        if link: f.write(f"#EXTINF:-1,{nom}\n{link}\n")
-    for nom, url in canales_estaticos.items():
-        f.write(f"#EXTINF:-1,{nom}\n{url}\n")
-
-print("¡LISTO! Archivo generado con todos los canales.")
+#EXTM3U
+#EXTINF:-1,2. Telefe
+https://manifest.googlevideo.com/api/manifest/hls_playlist/expire/1773696220/ei/fCC4aa2PB4CZ1sQP9djsuAU/ip/181.116.201.253/id/aGOgShvQlaQ.1~45728541/itag/96/source/yt_live_broadcast/requiressl/yes/ratebypass/yes/live/1/sgoap/gir%3Dyes%3Bitag%3D140/sgovp/gir%3Dyes%3Bitag%3D137/rqh/1/hls_chunk_host/rr2---sn-ja5gv5g-na5e.googlevideo.com/xpc/EgVo2aDSNQ%3D%3D/gcr/ar/bui/AVNa5-x29A5kEfhBJqBcyGzPf9_hkRHidoCyf4PQtXO3lwnr8-JZhgIjCag3WTTxbTilnoR4DcU_DOQy/spc/6dlaFIJrllVPsHK8zgy384pWY7-Mv_2F1AZTN8I3ObrJZCxATQ/vprv/1/reg/0/playlist_type/DVR/initcwndbps/2060000/met/1773674620,/mh/eV/mm/44/mn/sn-ja5gv5g-na5e/ms/lva/mv/m/mvi/2/pl/22/rms/lva,lva/dover/11/pacing/0/keepalive/yes/fexp/51565115,51565681,51791334/mt/1773674219/sparams/expire,ei,ip,id,itag,source,requiressl,ratebypass,live,sgoap,sgovp,rqh,xpc,gcr,bui,spc,vprv,reg,playlist_type/sig/AHEqNM4wRQIgYuJw8JzvHkrO3uQ7mW3EtAdbW9nGnHRIQVyH0LiSTbcCIQDXKqT1xl_YBO6F1_PFXH24JzIoE-q2s15X-tb2lRAoSQ%3D%3D/lsparams/hls_chunk_host,initcwndbps,met,mh,mm,mn,ms,mv,mvi,pl,rms/lsig/APaTxxMwRAIgeuWxCQUruy-fuhV3GVPXM-tmtU0KCLUHsVWvSOSD6hACIE1Vtvh8tg9X0QS_aRsuP5MVJx6UvUR6llupCjBc2gpm/playlist/index.m3u8
+#EXTINF:-1,4. TN Todo Noticias
+https://manifest.googlevideo.com/api/manifest/hls_playlist/expire/1773696223/ei/fyC4adyMMbWO-LAPs8G30Q8/ip/181.116.201.253/id/cb12KmMMDJA.3/itag/96/source/yt_live_broadcast/requiressl/yes/ratebypass/yes/live/1/sgoap/gir%3Dyes%3Bitag%3D140/sgovp/gir%3Dyes%3Bitag%3D137/rqh/1/hls_chunk_host/rr2---sn-ja5gv5g-na5l.googlevideo.com/xpc/EgVo2aDSNQ%3D%3D/bui/AVNa5-y2SpXmeWM3Ba0N7U5ULrpjNdR5DL_uAFR_EasjOqyph_k86i4MW_H87-ypTMH5J6K1WKpBVxXA/spc/6dlaFMAtVnIohVtmjoAHHGdottN9EbyK_zBCz9u_ghF2GHU86A/vprv/1/reg/0/playlist_type/DVR/hcs/sd/initcwndbps/1962500/met/1773674624,/mh/o5/mm/44/mn/sn-ja5gv5g-na5l/ms/lva/mv/m/mvi/2/pl/22/rmhost/rr1---sn-ja5gv5g-na5l.googlevideo.com/rms/lva,lva/dover/11/pacing/0/keepalive/yes/fexp/51565115,51565682,51791334/mt/1773674219/sparams/expire,ei,ip,id,itag,source,requiressl,ratebypass,live,sgoap,sgovp,rqh,xpc,bui,spc,vprv,reg,playlist_type/sig/AHEqNM4wRQIgVrbzBLLhuigSwCIfZfBPnw8RRNfKYCilFl6l5-eS3fcCIQD1cInG1zH5x_6BhdYpTU4pFjgahPOsy-C_c7a3dSOpfA%3D%3D/lsparams/hls_chunk_host,hcs,initcwndbps,met,mh,mm,mn,ms,mv,mvi,pl,rmhost,rms/lsig/APaTxxMwQwIgOfBrF-3zeMEzXy4tF0N-2xKJ7BHVxqxdrF2ese4zeL8CH1NJYhhQZMcgFNjEAb9yUgVNTLRpBMxgFOtmKZFlBA4%3D/playlist/index.m3u8
+#EXTINF:-1,5. AMERICA TV (Google HD)
+https://dai.google.com/linear/hls/pa/event/OY2i_lL4SMyXE5Zaj4ULEg/stream/882ee0f7-fa43-499c-b598-5102a8076cff:SCL2/master.m3u8
+#EXTINF:-1,6. A24 (Google HD)
+https://dai.google.com/linear/hls/pa/event/Txk1vDlZR2CCfDuUZ0ylpw/stream/3f52902a-22c2-4163-8438-ab9e4413b732:SCL2/master.m3u8
+#EXTINF:-1,7. ESPN Premium
+http://dplatino.net:80//live/credito3geotv/car26octtv/149087.ts
+#EXTINF:-1,8. TyC Sports
+http://dplatino.net:80//live/credito3geotv/car26octtv/81252.ts
+#EXTINF:-1,9. TNT Sports
+http://dplatino.net:80//live/credito3geotv/car26octtv/81284.ts
+#EXTINF:-1,10. FOX Sports
+http://dplatino.net:80//live/credito3geotv/car26octtv/50506.ts
+#EXTINF:-1,11. Pluto TV Deportes
+http://samsung-ar.pluto.tv/samsung-ar/linear/6082e0fb521c70000787e6fa/master.m3u8
